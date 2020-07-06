@@ -1,0 +1,246 @@
+﻿****JUPYTER NOTEBOOK CONNECTION****
+-Jupyter te ayuda a visualizar mejor los dataframes
+-Acuerdate que no hay necesidad de hacer print(), solo llamas el objeto y ya
+-Se ejecuta con shift + enter
+
+- Para usar jupyer notebooks tienes que ir al cmd y poner 'cd xxxxxx' donde xxxxx es la ruta donde
+estan tus archivos
+-Despues simplemente escribes jupyer notebook y espera que se conecte. Esto crea una terminal
+local donde corre jupyter
+
+***********PANDAS*************
+
+import pandas as pd
+df = pd.read_csv(r'C:/Users/Giancarlo/Documents/developer_survey_2019/survey_results_public.csv')
+#df significa dataframe que es sinonimo de rows and columns
+Cuando imprimes df te va a salir los indices tambien que es el numero por default que se le asigna a cada row
+
+***ACUERDATE QUE EN TODOS LOS SIGUIENTES EJEMPLOS DF ES EL NOMBRE QUE LE PUSIMOS PERO PODEMOS PONERLE
+CUALQUIER NOMBRE A NUESTRO DATAFRAME"
+
+df.shape #te dice el tamaño del dataframe
+df.head(10) #te dice desde el head, osea desde el principio, cuantas filas quieres mostrar
+df['Country'].head(50) #te da los primeros 50 valores de la columna 'Country', puedes agregar màs columnas que quieras ver pero en lista
+df.tail(10) #te dice desde el tail osea desde el final, cuantas filas quieres mostrar
+Si los dejas en blanco te tira 5 por default
+
+pd.set_option('display.max_columns',85) #le dices el numero de columnas que quieres mostrar ('85')
+pd.set_option('display.max_rows',85) #le dices el numero de filas que quieres mostrar ('85')
+
+schema_df = pd.read_csv('C:/Users/Giancarlo/Documents/developer_survey_2019/survey_results_schema.csv')
+#el schema es un archivo que te relaciona columnas del archivo original con alguna otra info
+
+-De cierta manera, python usa dictionaries para representar dataframes. Por ejemplo
+df = pd.DataFrame(people) donde people es un diccionario con keys first,last,email y los valores cada key son una lista que representa 
+los valores de las columnas. Index es el numero del row
+
+series = list of data with many functionalities  (one-dimensional array). Si series are rows of a single column.
+So dataframe is container of series objects
+
+df['nombrecolumna'] #con esto puedes acceder a los valores de la columna. Tambien puede ser df.nombrecolumna, pero no es
+recomendado porque puede que el nombre de tu columna es igual a un metodo de df
+
+df['nombrecolumna'].value_counts() #esto te cuenta las respuestas y te las tira en orden de mayor a menor asi bien bonito
+
+df[['last','email']] #con esto puedes acceder a los valores de dos columnas (con los dos pares de brackets)
+
+df.columns #te tira el nombre de todas las columnas
+
+df.iloc[[rowlist], [columnlist]]
+df.iloc[0] #allow us to acces row by INTEGER locations. El resultado te va a tirar las columnas como indices
+df.iloc[[0,1]] #te tira los dos primeras rows
+df.iloc[[0,1], 2] #te tira los dos primeros rows y la 3ra columna
+
+df.loc[0] #loc usa los labels de los indexes. Acuerdate que por default los indices son numeros pero puedes customizarlo.
+
+df.loc[0,1] #saca los primeros dos rows
+df.loc[[0,1],'label de columna'] #el label de la columna es el nombre de la columna pues
+df.loc[[0,1],['label de columna', 'label de columna2]] #el label de la columna es el nombre de la columna pues
+df.loc[0,'Hobbyist'] #te saca el valor de la columna Hobbyist para el primer row
+df.loc[[0,1,2],'Hobbyist'] #te sacar el valor de la columna Hobbyist para los 3 primeros rows.
+df.loc[0:2,'Hobbyist'] #Obtienes el mismo resultado de arriba usando slicing
+df.loc[0:2,'Hobbyist':'Employment'] #Obtienes el mismo resultado de arriba usando slicing
+#Slicing is inclusive
+
+df.set_index('nombrecolumna') #te permite VER cada row con indices basados en los valores de nombrecolumna
+de.set_index('nombrecolumna', inplace = True) #el inplace=true te CAMBIA de hecho los index de la tabla
+df.index #te tira ls index del dataframe
+Entonces por ejemplo ahora puedes hacer
+df.loc['nombredeindex', 'valordecolumnaquieressacar'] #acuerdate que el index es el label del row
+df.reset_index(inplace=True) #te resetea los index de tu df
+df = pd.read_csv(r'C:/Users/Giancarlo/Documents/developer_survey_2019/survey_results_public.csv',index_col ='Respondent')
+#Puedes definir de una vez desde el pd.read la columna que quieres que se use como index.
+O sea, despues que seteas la columna que quieres como index puedes usar facilmente df.loc para puscar el valor
+que quieras màs facil e intuitivo
+schema_df.sort_index(ascending = True) #Te sortea la lista de index, para setearlo tiene que usar el inplace ,inplace=True
+
+df['nombrecolumna'] == 'whatever' #Esto te va a decir True o False si el valor de nombrevolumna es 'whatever'
+Entonces se puede usar como filtro. 
+filt = df['nombrecolumna'] == 'whatever'. Se asigna una variable (cualquier nombre) al filtro y acuerdate que te tira una serie de booleans
+df[filt] #Con esto puedes aplicar el filtro definido a tu df
+df.loc[filt] es igual a df[filt]. La ventaja de usar .loc con filt es que puedas buscar la columna especifica que quieras,
+por ejemplo
+df.loc[filt, 'nombrecolumna'] #te tira los valores de nombrecolumna que cumplan con el filtro
+& = AND
+| = OR
+>
+<
+filt = (df['nombrecolumna'] == 'whatever') & (df['nombrecolumna2'] == 'whatever2')
+filt = (df['nombrecolumna'] == 'whatever') | (df['nombrecolumna2'] == 'whatever2')
+df.loc[~filt, 'nombrecolumna'] # El  ~ es para decir NOT
+filt_str = (df_edocs['Task Code (JIC)'].str.startswith('EA 5') #Este filtro de dice agarra la columna de task code que el valor del row empieze con 'EA 5'
+Tambien existe str.contains, hay buenos methods de strings en pandas
+
+filt_ccktime = df_cck['Time - Complete Information Received'].dt.year == 2020 # Es para filtrar por año
+
+
+countries = ['United States', 'India', 'United Kingdom','Germany', 'Canada'] #puedes crear una lista de valores de filtro
+filt = df['Country'].isin(countries) #isin es el operador. Te agarra los paises que estan en la lista de countries
+
+filt = df['LanguageWorkedWith'].str.contains('Python', na=False) #For column LanguageWorkedWith does the string in that column contain 'Python'? 
+If not then just put a False there. str.contains is a pandas string method, look up other ones, really helpful!
+
+df.columns = ['nuevonombrecolumna1', 'nuevonombrecolumna2'] #De esta manera puedes cambiar in place el nombre de TODAS las columnas
+df.columns = [x.upper for x in df.columns] #list comprehension que te hace uppercase todos los column names
+df.columns = df.columns.str.replace(' ','_') #Usa el str method para replace los espacios ' ' por undersocre '_'
+df.rename(columns={'columna1': 'columna ultra'}, inplace = True) #Cambia el nombre de columna1 a columna ultra
+df.rename(index se usa para cambiar el nombre de los indices
+
+df.iloc[2] = ['nuevovalor1', 'nuevovalor2', 'nuevovalor3'] #Esto de cambia los valores de las 3 columnas para el row con indice 2
+df.iloc[2, ['last','email']] = ['Galina', 'gali@gmail.com'] #Esto dice que en el row con indice 2, los valores para las columnas
+last y email cambialos a Galina y gali@gmail.com
+df.iloc[2,'last'] = 'Galina' #Esto dice que en el row con indice 2, el valor para la columna last cambialo a Galina
+#Puedes usar loc tambien sin problema solo que ponemos el nombre del indice obvio
+df.loc[filt, 'last'] = 'Smith' #Esto dice buscame el row resultado del filtro y cambiame el valor correspondiente a la columna 'last' a 'Smith'
+df['email'] = df['email'].str.lower() #Esto te tira toda la seria debajo de la columna de email y le aplica el metodo str.lower()
+
+df['email'].apply(len) #apply method te permite correr una funcion contra la serie de una columna
+df['email'].apply('functioname') #'functionname' puede ser una funcion que tu definiste ,even lambdas. No se pone ()!
+len(df['email']) #te tira cuantos rows hay en la columna 'email'
+df.apply(len, axis='columns') #te cuenta cuantos valores (columnas) tiene cada row 
+df.apply(pd.Series.min) #te saca los valores minimos
+df.applymap('aqui va tu funcion') #aplica la funcion a TODO el df
+df['first'] = 	df['first'].replace({'valororiginal1': 'valornuevo1', 'valororiginal2':'valornuevo2'}) #Es para reemplazar valores de la columna 'first'
+df['nombrecolumna'] = df['nombrecolumna'].map({'Yes': True, 'No': False}) #Te reemplaza los valores de Yes a True y No a False en la columna 'nombrecolumna'
+#Lo que no este en nuestro diccionario de map sera transformado a NaN. Si no quieres tocar los otros entonces usa el replace method
+
+df['newcolumn'] = df['columna1'] + ' ' + df['columna2'] #Agrega una nueva columna que concatena columna1 y columna2.
+df['newcolumn'] = alguna serie cualquiera que sea #Agrega una nueva columna a lo libre por decirlo asi
+df.drop(columns = ['columna1', 'columna2'], inplace=True) #Con esto puedes borrar columnas
+df.drop(index = 2, inplace=True) #Con esto puedes borrar rows
+df.drop(index = df[df['last'] == 'Doe'].index)  
+
+filt = df['last'] == 'Doe'
+df.drop(index =df[filt].index)#Te elimina las filas que contengan 'Doe' en la columna de 'last'
+
+df['newcolumn'] .str.split(' ') #Te splitea los contenidos de newcolumn sobre un ' '
+df[['newcolumn1', 'newcolumn2']] = df['newcolumn'] .str.split(' ', expand = True) 
+#El expand te pone cada elemento del split en una nueva columna 'newcolumn1' y 'newcolumn2'
+df.append({'first':'Tony'}, ignore_index = True) #Agrega una nueva fila en la cual la columna 'first' tiene valor de 'Tony'
+df = df.append(df2, ignore_index = True) #Te junda dos dataframes
+
+df.sort_values(by='last', inplace = True) #Te ordena alfabeticamente los valores de la serie de la columna 'last' o smallest to highest si son numeros
+df.sort_values(by='last', ascending = False, inplace = True) #Te ordena descending. Acuerda que por default es de menor a mayor
+df.sort_values(by=['last','first'], ascending = False, inplace = True) #Te ordena descending primero en base a columna 'last' y despues en base 'first'
+df.sort_values(by=['last','first'], ascending = [False, True], inplace = True) #self explanatory
+df.sort_index() #Es para reversar como estaba el sorting originalmente
+df['last'].sort_values() #Te tira solo los sort de la columna last
+df['SalaryUSD'].nlargest(10) #el metodo nlargest(10) te tira los 10 valores mas grandes de una serie
+df.nlargest(10, 'SalaryUSD') #Puedes aplicar el metodo nlargest a todo el df y asi puedes ver los  valores de las otras columnas
+nsmallest #te tira los mas pequeños
+
+*******DATA ANALYSIS SECTION **********	(learn statistics!)
+
+df['ConvertedComp'].median() #Te tira el median de la serie de la columna 'ConvertedComp'
+df.median() #Te busca las columnas con valores numericos y te tira el median de cada una
+df.describe() #Te tira varios stats estadisticos de todas las columnas numericas
+#count en el resultado es el numero de non-NaN rows
+statistics pro tip : When you have crazy outliers using the mean is misleading, better use median
+df['Hobbyist'].value_counts() #Te cuenta las instancias de una respuesta unica, por ejemplo cuantos Yes y cuantos No de
+la columna 'Hobbyist'
+df['SocialMedia'].value_counts(normalize = True) #El normalize te lo tira en porcentajes
+
+country_grp = df.groupby(['Country']) #Creas una variable que defina en base a que columna quieres agrupar tu data
+country_grp.get_group('United States') #Esto te va a filtrar la tabla de manera que solo quedan los que tengan valor de
+'United States' en la columna 'Country'. En este caso esto es lo mismo que usar el filtro que vimos mas arriba. La ventaja
+es que groupby te splitea todos los resultados por el valor que usaste para agrupar. Por ejemplo puedes ver el valor màs
+recurrente de otra columna en base a 'Country'. Entonces por ejemplo, usando el filtro:
+
+filt = df['Country'] == 'India'
+df.loc[filt]['SocialMedia'].value_counts
+#Esto te va a tirar el numero de valores unicos de la columna SocialMedia para la columna India. Te sale algo asi como:
+Whatsapp    2990
+Youtube     1203
+Reddit      989
+
+country_grp['SocialMedia'].value_counts().head(50) #Con el groupby te va a salir algo asi como
+Country			SocialMedia
+Afghanistan		Reddit		234
+			Youtube		120
+
+
+Albania			Facbeook	3245
+			Youtube		2123
+
+
+country_grp['SocialMedia'].value_counts().loc['India'] #Con esto puedes hacer lo de arriba pero aterrizado al pais que quieras
+Esa es la ventaja, que es facil filtrar la data complicada. Osea no tienes que crear un pocoton de variables de filtro. Acuerdate
+que puedes tambien usar el normalize = True en value counts
+df['Columna1'].unique() #Te tira una serie de los valores unicos de Columna1
+
+country_grp['ConvertedComp'].median() #Te tira los median de 'ConvertedComp' para la columna que usaste groupby. Acuerdate que los resultados
+Te los va a tirar en formato country median. Entonces el country en este resultado seria el indice y con esto puedes usar loc para buscar el
+pais que te interese:
+country_grp['ConvertedComp'].median().loc['Germany']
+agglist = ['median','mean'] #Define las funciones que quieres aplicar
+country_grp['ConvertedComp'].agg(agglist).loc['Canada'] #Con el agg method puedes meter esas funciones y te tira los resultados
+country_grp['LanguageWorkedWith'].apply(lambda x: x.str.contains('Python').sum()) #Te tira tods los paises que en la columna de
+LanguageWorkedWith tiene Python y te dice cuantos encontro de esos por pais
+
+python_df = pd.concat([country_respondents, country_uses_python], axis = 'columns')
+#Esto es como un vlookup. Te concatena las series country_respondents y country_uses_python donde el indice haga match. A este resultado
+lo asigno a un nuevo dataframe que llame python_df. Acuerdate que el axis = 'columns' es porque por default pandas trata de buscar rows
+que matcheen. axis = columns hace que matchee por los index
+
+
+*************CLEANING DATA*******************
+
+import numpy as np #You have to import numpy to help you
+
+df.dropna() #Te quita los rows que have missing values
+df.dropna(axis = 'index', how = 'any') #axis y how son los argumentos de este metodo. En este caso dropna() te va a quitar filas(o sea, index)
+donde haya missing values. Si fuera axis = 'column' entonces te removeria las columnas que tienen missing values. how es el criterio que usa para
+quitar un row o column. Si es any entonces it will drop rows with any missing values.
+df.dropna(axis = 'index', how = 'all', subset = ['columnx'], inplace=True) #Drop rows tha have missing values in 'columnx'
+f.dropna(axis = 'index', how = 'all', subset = ['columnx','columny'], inplace = True) #Drop rows that have ALL values of columnx and columy missing
+df.isna() #Te tira boolean en todo el df si es NaN o no
+df.fillna('MISSING') #Substituye todos los missing values con 'MISSING'
+df.dtypes #Te tira el tipo de data que contiene cada columna. Te sirve para saber que tipo de operaciones puedes hacer en los valores de una columna
+#NaN es unfloat
+df['columna1'] =df['columna1'].astype(float) #Te convierte toda la columna1 a float.
+
+na_vals = ['NA', 'MISSING', 'Missing', 'missing'] #Esta lista es para que los string que se encuentren con esos valores se conviertan en NaN float
+df = pd.read_csv(r'C:/Users/Giancarlo/Documents/developer_survey_2019/survey_results_public.csv',index_col ='Respondent',na_values =na_vals)
+schema_df = pd.read_csv('C:/Users/Giancarlo/Documents/developer_survey_2019/survey_results_schema.csv',index_col ='Column') 
+
+
+Axis 0 will act on all the ROWS in each COLUMN
+Axis 1 will act on all the COLUMNS in each ROW
+
+axis=0 is the dimension that points downwards and axis=1 the one that points to the right
+
+If you calculate a statistic, say a mean, with axis = 0 you will get that statistic for each column.
+Por ejemplo: df_edocs.isnull().any(axis=1)  Te dice, Is there ANY column for each row that ISNULL?
+
+
+df[filt]['columna'].values[0] te tira el valor exacto de la celda
+
+df_cck1[df_cck1 < 0] =0 
+por ejemplo aqui te reemplaza los valos menos a 0 con un cero
+
+astype() method is used to cast a pandas object to a specified dtype. astype() function also provides the capability to convert any 
+suitable existing column to categorical type. DataFrame. astype() function comes very handy when we want to case a particular column 
+data type to another data type.
+
+
+

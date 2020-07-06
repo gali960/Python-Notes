@@ -1,0 +1,59 @@
+Classes allows us to logicaly group our data and functions in way that 
+is easy to reuse and build upon if need be
+data = attributes
+functions = methods. A method is a function associated with a class
+
+A class is a blueprint for creating instances. 
+Por ejemplo:
+
+class Employee:
+        
+    raise_amount = 1.04 #this is a class variable    
+    num_of_emps = 0
+
+    def __init__(self,first,last,pay):
+	self.first = first #the same as saying emp_1.first = 'Gian'
+	self.last = last
+	self.pay = pay
+	self.email ='{}.{}@gmail.com'.format(first,last)
+
+#the init method runs everytime a new instance is created
+por ejemplo:
+	Employee.num_of_emps +=1
+
+    def fullname(self):
+	return '{} {}'.format(self.first,self.last)
+
+    def apply_raise(self):
+	self.pay = int(self.pay + self.raise_amount)
+ 
+#tienes que ponerle el self a la class variable ya que te 
+permite cambiar el valor de esa variable para una instancia en
+especifico: Por ejemplo
+
+Employee.raise_amount =1.05 >> print(Employee.raise_amount)>>1.05
+emp_1.raise_amount = 1.06 >> print(emp_1.raise_amount)>>1.06
+
+#Each method (function) within a class takes the instance as the
+first argument. Methods require parenthesis when called
+
+el def __init__ inicializa el class, el primer argumento "self"
+apunta la instancia de esa clase. Por convencion siempre se
+escribe "self".
+
+print(Employee.num_of_emps) >>> 0
+emp_1 = Employee('Giancarlo','Galina',50000)
+emp_2 = Employee('Maria','Lugo',70000))
+print(Employee.num_of_emps) >>> 2
+
+emp_1 y emp_2 serian ambos instancias de la class Employee
+
+print(emp_1.email) #imprime atributo email de la instancia emp_1
+
+print(emp_1.fullname()) #puedes llamar metodos de la clase
+simplemente con instancia.metodo(). facilito.
+
+Class variables are variables shared by all instances of a class
+Por ejemplo: print(emp_1.raise_amount) funciona porque la variable
+raise_amount se comparte entre todos los miembros del class
+

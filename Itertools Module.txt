@@ -1,0 +1,89 @@
+Permutations: use permutations from itertools module
+combinations: use combinations from itertools module:
+
+***combinations, combinations_with_replacement, y permutations
+te arrojan un tuple de tamañano r
+
+itertools.combinations(list, r): it allows to make combinations of r elements of an iterable.
+For example combinations of 3 elements in a list to make a triplets
+enumerate = te tira un iterable de una lista x que ahora incluye el
+(indice,valor)
+
+itertools.permutations(list,r) = combination pero lo usas cuando el orden importa
+por ejemplo permutacion de a y b es (a,b) y(b,a) mientras
+combinacion es solo (a,b)
+
+itertools.product(numbers, repeat = 4): es igual que permutation
+pero te incluye repetidos. Se puede hacer para hacer un
+password cracker
+
+numbers = [0,1,2,3,4] entonces el producto va a ser
+(0,0,0,0)
+(0,0,0,1)
+etc
+
+itertools.combinations_with_replacement(numbers,4) te da lo mismo
+que product pero con combinaciones
+
+zip() te empareja dos listas iterables
+[1,2,3] y [a,b,c] si zipeas esto queda [(1,a),(2,b)...
+The zip() function takes iterables (can be zero or more), 
+aggregates them in a tuple, and return it.
+
+
+count(): (itertools.count(start,step)) = es un contador, puede contar
+al reves tambien poniendo un step negativo. Por ejemplo:
+itertools.count( start =5, step =-2.5) cuenta desde 5 pa tas en
+decrementos de 2.5
+
+iterators.zip_longest(): usualmente el zip() te lo empareja hasta que
+la lista de menor tamaño se acabe. zip longest empareja y usa la lista
+mas larga de los 2. Los que no se puedan emparejar entonces le asigna
+None.
+[(3,1),(4, None), (5,None)...
+
+itertools.cycle(): takes an interator and cycles over and over. Por
+ejemplo itertools.cycle([1,2,3])
+print(lo de arriba) -- 1, 2, 3
+print(lo de arriba)  -1 ,2 ,3
+
+itertools.repeat(2,times = 3) te tira el valor la cantidad de veces
+que quieras.
+
+itertools.chain(list1,list2,list3)
+te itera sobre todas esas listas
+
+files are iterable and each element is a line of the file
+
+itertools.dropwhile(function,list): lo que hace es que verifica
+la list por condicion que dicte la function y apenas le pegue a uno
+entonces te printeo el resto de list desde ese pegue
+
+itertools.takewhile (function,list) te tira los valores que peguen
+hasta que sea falsa, en ese punto te lo trunca y te printeo lo que
+agarró
+
+itertools.accumulate(list, function): lo que hace es que te suma los valores
+que ha visto (0, 0+1,1+2,etc) si list = [0,1,2]. argumento de
+function puede ser multiplicacion y todo lo que tu quieras, si no hay
+argumento entonces por default suma
+
+You can cast things into a list if you get type exception:
+list(whatever)
+
+copy1, copy2 =itertools.tee(iterable): te permite copiar un iterable.
+No debemos usar el original si hacemos esto
+
+#This is a good way to get out of a while loop
+with open('data.txt','r') as f:
+    size_to_read = 100
+    f_contents = f.read(size_to_read)
+    while len(f_contents) > 0:
+        print(f_contents)
+        f_contents = f.read(size_to_read)
+
+you can do print(list(itertools.whateverfunction(...
+para castear list en el objecto y asi sacar la lista de una vez
+en vez que tener que hacer un for loop
+
+

@@ -1,0 +1,108 @@
+Regular Expresions
+- Se usa el "import re"
+
+- La r es de "rawstring" y omite la logica de los caracteres especiales
+como "\". Por ejemplo: print(r'\tTab)) te imprime >>>\tTab mientras que 
+sin el r te imprimiria >>>     Tab
+
+- Para definir el patron haces lo siguiente:
+ pattern = re.compile(r'---aqui va lo que quieres buscar usando
+los special characters)
+
+-despues para print el match tienes que hacer:
+matches = pattern.finditer(-aqui va el texto que quieres revisar-=
+for match in matches:
+	print(match)
+
+-Por ejemplo pattern = re.compile(r'Mr\.?') busca todos los Mr que tengan 0 o 1 caracter especial
+indicado or '.'. Dicho de otra manera, el "?" hace que el . sea opcional
+. En este caso le tuvimos que poner \ al punto para que python no lo 
+reconozca como un special caracter.
+
+-Otro ejemplo de pattern = re.compile(r'[89]00[-.][a-c]'):
+te busca un numero que empiece con 8 o 9 seguido de 00 y . ó - 
+seguido de alguno de las letras a, b, c. "a-c" puede ser numeros 
+tambien
+
+-groups lets you combine patterns, por ejemplo r'(M(r|s|rs)) para buscar las M que les siga
+r o s o rs, tambien podria ser r'(Mr|Ms|Mrs bla bla)
+
+-acuerdate que puedes usar ''' para escribir strings en varias lineas
+
+-acuerdate, los quantifiers modifican lo que viene ANTES de ellos, por ejemplo
+r'[a-z]+ te dice que encuentre 1 o mas de algo que tenga de a-z
+
+-la idea con regex es build el pattern poco a poco at a time
+
+Special Characters:
+
+.       - Any Character Except New Line
+\d      - Digit (0-9)
+\D      - Not a Digit (0-9)
+\w      - Word Character (a-z, A-Z, 0-9, _)
+\W      - Not a Word Character
+\s      - Whitespace (space, tab, newline)
+\S      - Not Whitespace (space, tab, newline)
+
+\b      - Word Boundary
+\B      - Not a Word Boundary
+^       - Beginning of a String
+$       - End of a String
+
+[]      - Matches Characters in brackets
+[^ ]    - Matches Characters NOT in brackets
+|       - Either Or
+( )     - Group
+
+Quantifiers:
+*       - 0 or More
++       - 1 or More
+?       - 0 or One
+{3}     - Exact Number
+{3,4}   - Range of Numbers (Minimum, Maximum)
+
+
+#### Sample Regexs ####
+
+[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+
+Esta de arriba te busca correos
+dentro del character set [ ] todo se vale por eso no hay que usar el \ si usas un
+special character. The \ "escapes" these special characters
+
+-El pattern aplica a uno por uno el raw string. Por ejemplo https?
+En este caso el ? solo le aplica a la "s". Para aplicarlo a varios entonces haces un grupo
+asi ve (www)? ahora el ? le aplica a todo el grupo dentro del parentesis
+
+-El match tiene un method de group:
+match.group(0) te va a retornar el resultado completo
+match.group(n) te va a sacar el n numero de grupos que haya en el pattern
+
+Por ejemplo:
+                                n=1     n=2  n=3
+pattern =re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+
+Para substitution:
+
+urls = '''
+https://www.google.com
+http://coreyms.com
+https://www.youtube.com
+https://www.nasa.gov
+
+'''
+
+pattern =re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+
+subbed_urls = pattern.sub(r'\2\3',urls) 
+#lo que hace este submetodo de .sub to sub group 2 and 3 for all of our matches in urls.
+Everytime it finds a match it will replace the match with group 2 and 3
+
+-findall() vs finditer(): findall te tira la lista con el match mientras finditer te tira eso
+y la info de la ubicacion, osea un findall con un poco mas de info. findall te tira el elemento
+de tipo lista mientras que el finditer te tira elemento de clase Match Object
+
+-pattern.match method te verifica solo la primera palabra de un string
+-pattern.search te verifica en todo el string y te tira el primer match solamente
+-el formato de re.compile es re.compil(r'', flag):
+el flag puede ser por ejemplo re.I que es para ignorar si es mayuscula
+o minuscula. Por ejemplo pattern=re.compile(r'start',re.I)

@@ -1,0 +1,68 @@
+from bs4 import BeautifulSoup  #asi se importa
+import requests
+
+with open('simple.html','r') as html_file:
+#puedes abrir un archivo html o leerlo directamente desde la url
+    soup = BeautifulSoup(html_file,'lxml')
+#los inputs son (cosa a leer, parser)
+print(soup.prettify()) # el prettify de pone los indents bonitos del html
+prettify es un metodo de la soup class
+
+
+match = soup.title.text 
+#esto te extrae el title, o sea lo que va dentro del bloque de  <head>
+  <title>
+#el .text te tira solamente el texto dentro del title sin ningun tag
+html
+#sin el .text te tiraria algo asi como <tittle> aqui va texto </title>
+#el .title lo puedes cambiar por ejemplo por un .div para buscar el primer
+.div
+
+match = soup.find('div', class_='footer')
+#El find method te busca un tag (https://www.w3schools.com/TAGS/default.ASP)
+,en este caso, un div, que tenga html class de footer
+es class_ porque "class" ya es built in de python
+
+print(match) # si quieres printear
+
+#para saber que tienes que parsear de la pagina hazle un right click > inspect
+y asi veras que class tiene y asi lo buscas con tu codigo
+
+#Cuando quieres scrape cierto elemento primero intenta parsear uno y asegurate
+que funciones y despues entonces buscas el resto
+
+article = soup.find('div', class_='article')
+>>> te printea lo siguiente:
+<div class="article">
+<h2><a href="article_1.html">Article 1 Headline</a></h2>
+<p>This is a summary of article 1</p>
+</div>
+#el 'div' se refiere al tipo de tag
+
+
+#If you wanna dig down into the text of a headline:
+headline = article.h2.a.text
+#Esto dice, ve al div ese que encontraste de article, ahi busca en h2 y en el
+anchor tag y manda el texto que veas ahi encerrado
+summary = article.p.text #esto te saca el parrafo p del div de article
+
+Entonces, para buscar tooodos entonces haz asi:
+for article in soup.find_all('div', class_='article')
+el find_all te crea un iterable, por eso hay que hacer el for loop
+
+****Abrir html desde el mismo url *****
+Aqui usamos source = requests.get('url').text
+sin el .text solo te tira un object
+
+Cuandos estes inspeccionando la pagina web tienes que buscar primero el contenedor
+raiz de lo que quieres. Puedes hacer hover de lo que quieres en la pagina
+para poder identificar mejor
+
+summary = article.find('div',class_ = 'entry-content').p.text
+#Este por ejemplo te busca el texto del parrafo en div con clase 'entry-content' 
+
+"Sometimes parsing information can get a little ugly and may take several steps
+before getting the desired result" - CoreyMS
+
+Attention: If you are scraping data from a big website like FANG, then better use
+their public API, else do webscraping

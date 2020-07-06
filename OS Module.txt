@@ -1,0 +1,35 @@
+OS Module
+
+- se importa como "import os"
+
+- para ver el directorio actual usa os.getcwd()
+
+-si quieres cambiar el cwd entonces usa os.chdir(path)
+
+- para ver los archivos en el directorio entonces usa os.listdir(path)
+
+-Para saber el absolute path usa os.path.abspath(path)
+
+-Para saber nombre de archivo usa os.path.basename(path)
+
+os.path.getmtime(path) : last mod date (in secs since epoch)
+os.path.getctime(path) : creation date (in secs since epoch)
+os.path.getsize(path) : size in bytes
+os.path.isfile(path): te dice si es un archivo
+os.path.isdir(path) : te dice si es un directorio
+os.path.splitext(path) : te da la extension del archivo en el path
+
+para cambiar de secs since epoch a tiempo local:
+import time
+time.ctime(os.path.getctime(path)) as applicable
+
+os.mkdir(path): para crear un directiorio en el path
+os.mkdirs(path) es para crear nested directories
+os.rename(oldpath,newpath) es para renombrar directorios
+os.rmdir(dir) es para remover directorios
+
+crear una lista con archivos que tengan una ext especifica:
+
+for file in pdf_files0:
+    if file.endswith('.pdf'):
+        pdf_files.append(file)

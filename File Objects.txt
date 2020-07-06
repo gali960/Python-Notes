@@ -1,0 +1,57 @@
+- Para abrir un archivo:
+File_object = open(r"File_Name","Access_Mode")
+
+Note: The r is placed before filename to prevent the characters
+in filename string to be treated as special character
+
+f = open('path','r')
+
+with open(r"File_Name","Access_Mode") as f:
+	#aqui hacer lo que quieras con el file,
+	asi no te preocupas por hacer el f.close
+
+path puede ser el mismo nombre del archivo si esta en el 
+mismo cwd o sino tienes que poner el absolute path
+r = read,  w = write, r+= read and write, a = appending
+
+If the file cannot be opened, a FileNotFoundError is raised.
+
+f.name = te tira el nombre del archivo
+f.close = te cierra el archivo y siempre hay que hacerlo
+f.read = te tira el archivo y lo puedes printear
+f.realines = te tira cada linea del archivo como elemento de una 
+lista
+f.readline = te tira la primera linea y asi sucesivamente si llamas
+la funcion de nuevo
+f.tell = te dice en que posicion del archivo estas
+f.seek() = te setea tu posicion de lectura del file al valor
+entre parentesis. e.g. seek(0) te tira al comienzo
+
+-Para acceder linea por linea se hace lo siguiente:
+
+with open(r"File_Name","Access_Mode") as f:
+ for line in f:
+        print(line,end = '') #esto te imprime linea por linea
+			    para no tener que abrir todo el archivo
+ 			de una y alocar toda esa memoria por gusto
+
+-Para acceder a cierto tamaño del file se hace lo siguiente:
+  f_contents = f.read(100) #en este caso si es un txt file te lee los
+			    primeros 100 caracteres
+
+Si llamas de nuevo el f.read(100) te va a dar los siguientes 100
+    print(f_contents)
+
+
+*****TO WRITE*******
+'w' te sobreescribe un archivo si ya existe, juega vivo!
+
+#Esto te copia de un archivo rf a otro wf
+with open('data.txt','r') as rf:
+    with open('data2.txt','w') as wf:
+        for line in rf:
+
+To open images files they need to be opened in binary in order
+to be read
+            wf.write(line)
+

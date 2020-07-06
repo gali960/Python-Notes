@@ -1,0 +1,234 @@
+remove: removes the first matching value
+list.remove(2)
+del: removes the item at a specific index
+del list[1]
+pop : removed the item at a specific index
+list.pop(1)
+
+*****ALWAYS THINK, CAN I DO THIS IN LIST COMPREHENSION????***
+*****ALWAYS THINK, IS THERE AN EASIER WAY TO DO THIS?********
+
+Lists
+
+-List is a collection which is ordered.
+-Lists are mutable (changeable) .
+-Allows duplicate members
+-Brackets used to represent: []
+-Lists are like arrays declared in other languages.
+
+List methods:
+**list methods can also be used for strings**
+
+append()	Adds an element at the end of the list
+		list.append(item)
+clear()		Removes all the elements from the list
+		list.clear()
+copy()		Returns a copy of the list
+count()		Returns the number of elements with the specified value
+list.count(x), or string.count(x)
+extend()	Add the elements of a list (or any iterable), to the end of the current list
+index()		Returns the index of the first element with the specified value
+insert()	Adds an element at the specified position
+pop()		Removes the element at the specified position
+remove()	Removes the first item with the specified value
+reverse()	Reverses the order of the list
+reversed()	es como sort y sorted
+sort()		Sorts the list
+sorted()	Te tira en una nueva lista y te castea en lista
+len()		Prints lenght of list
+min()
+max()
+sum()
+filter()	filter(function, iterable)
+filter es un generador, tienes que convertirlo en lista asi:
+list(filter(function,iterable))
+y acuerdate que el function es la CONDICION que quieres testear:
+por ejemplo: list(filter(lambda x: type(x) == int,l))
+list() crea algo en una lista
+zip()       Agarra dos iterables y te empareja cada elemento n de una
+	    con el elemento n de la otra
+zip(iterable1,iterable2)
+
+
+
+one = [1, 2, 3]
+two = [9, 8, 5, 3, 2, 1]
+
+all(x in two for x in one) #Equivalente de issubset() para los 
+sets. Acuerdate que los sets no pueden tener duplicados.
+
+Tuples
+
+-Collection of items which is ordered.
+-Tuples are immutable (unchangeable) .
+-Brackets used to represent: ()
+-Only difference between tuples and lists are that lists can be changed.
+-Tuples are faster than lists as they are immutable.
+
+Una manera bruja de hacer tuples:
+def test():
+    return 'abc', 100
+
+Sets
+
+-Collection of Unordered and Unindexed items.
+-Sets are mutable (changeable).
+-Does not take duplicate Values.
+-Sets are unordered, so you cannot be sure in which order the items will appear.
+-Brackets used to represent: { }.
+-Sets are not faster than lists however they have a upper hand when it comes to membership testing.
+
+If A and B are two sets. The set difference of A and B is a set of 
+elements that exists only in set A but not in B. For example:
+A.difference(B)
+
+
+Dictionaries
+
+-Key:Value Pair in Python
+-A dictionary is a collection which is unordered, changeable and 
+indexed.
+-In Python dictionaries are written with curly brackets, 
+and they have keys and values.
+-Brackets used to represent: {}.
+-Dictionaries cannot have duplicate keys. Por ejemplo:
+dict.fromkeys(list) #te convierte una lista en un diccionario,
+puedes usarlo para remover duplicados si la conversion a set
+no te sirve
+
+clear()		Removes all the elements from the dictionary
+copy()		Returns a copy of the dictionary
+fromkeys()	Returns a dictionary with the specified keys and value
+get()		Returns the value of the specified key
+items()		Returns a list containing a tuple for each key value pair
+keys()		Returns a list containing the dictionary's keys
+pop()		Removes the element with the specified key
+popitem()	Removes the last inserted key-value pair
+setdefault()	Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
+update()	Updates the dictionary with the specified key-value pairs
+values()	Returns a list of all the values in the dictionary
+
+Para sacar el valor del key "10" tienes que poner:
+print(dict['10'])
+
+Tambien para formatear strings con valores de un diccionario se puede
+hacer: print(' I´m {name}. I am {age} years old'.format(**person)
+donde name y age son keys y person es el dict
+
+Strings
+you can concatenate booleans: print(x==y==z)
+Just to explain the parts of the formatting string:
+
+{} places a variable into a string
+0 takes the variable at argument position 0
+: adds formatting options for this variable (otherwise it would represent decimal 6)
+08 formats the number to eight digits zero-padded on the left
+b converts the number to its binary representation
+
+you can reverse strings like this:
+txt = "Hello World"[::-1]
+
+Learn format method for strings
+split() method splits a string into a list
+x = txt.split()
+tambien puedes castear list(string) y convertir una palabra 
+en una lista de sus caracteres
+
+'string'.join(iterable) te permite concatenar elementos string de
+un iterable o tambien concatener un iterable en un string usando el
+'' en string
+
+You can even zip fucking strings:
+for i in zip(txt1,txt2):
+    print(i)
+
+te tira:
+
+txt1 = 'abcde'
+txt2 = 'bcdef'
+>>>
+('a', 'b')
+('b', 'c')
+('c', 'd')
+('d', 'e')
+('e', 'f')
+
+ejemplo de como puedes usar zip y llamar elementos de un
+iterable con (x,y) o sea (elemento1, elemento2) in list:
+return sum(x!=y for (x,y) in zip(txt1,txt2))
+#esto dice: dimecuantas veces ocurre x!=y para cada
+par (x,y) en el zip de txt1 y txt2
+
+Puedes hata sumar una lista de booleans
+Acuerdate que los booleans de comparacion == != retornan
+por default true o false. No hay necesidad de hacer if else 
+
+por ejemplo si print(1==2) va a tirarte False
+
+sum(True,True,True) = 3
+sum(True,True,False) = 2
+
+txt = 'apple'
+print(txt[1:])  
+>>> pple
+**En caso que quieras mochar strings**
+print(txt[:-1])
+>>appl
+Slice notation "[a:b:c]" means "count in increments of c 
+starting at a inclusive, up to b exclusive".
+If c is negative you count backwards, if omitted it is 1. 
+If a is omitted then you start as far as possible in the 
+direction you're counting from (so that's the start if c 
+is positive and the end if negative). If b is omitted then 
+you end as far as possible in the direction you're counting 
+to (so that's the end if c is positive and the start if negative). 
+If a or b is negative it's an offset from 
+the end (-1 being the last character) instead of the start.
+
+
+
+
+To count recursion use a global variable
+i=0
+def length(txt):
+    chars = list(txt)
+    global i
+    if chars == []:
+        return i
+    else:
+        chars.pop()
+        i += 1
+        return length(''.join(chars))
+
+*********
+
+Primera solucion:
+
+ return ''.join(sorted(s, key=str.isupper, reverse=True))
+#aunque el input es el strin s, y sorted te tira una lista
+el key puede incluir el tipo de elemento que quiere iterar,
+en este caso seria el str.isupper para verificar los elementos
+del string
+
+
+def cap_to_front(s):
+	uppers = [i for i in s if i.isupper()]
+	lowers = [i for i in s if i.islower()]
+	return "".join(uppers + lowers)
+#en esta otra solucion al mismo problema se puede ver que solo
+llamando i.isupper() python te returnea un boolean. O sea
+el "if i.isupper()" es lo mismo que decir if i.isupper() == True
+
+Remember, comprehensions always have to be in an iterable
+Por ejemplo si queires saber cuantas vocales hay en un texto:
+  return sum(c in "aeiou" for c in txt)
+
+def filter_list(lst):
+    return [i for i in lst if type(i) == int]
+#otro ejemplo para filtrar los int de un texto
+
+
+
+***HEY HEY, QUE DEMENCIA, PARA SABER LOS METODOS QUE LE PUEDES
+APLICAR A UN OBJECTO SOLO USA print(dir(objeto)), wow! 
+y tambien print(help(objeto)) ...super useful!

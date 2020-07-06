@@ -1,0 +1,279 @@
+-Tienes un registro de cada linea de codigo, es como una maquina del tiempo. Quien modifico,
+a que hora, donde, etc. 
+-Puedes revertir cambios
+-Puede trabajar con repositorios locales y remotos y puede ser accesible a varios developers
+- Version tracking usando "snapshots"
+-Git puede usarse para cualquier tipo de archivo
+
+- Hay 3 estados:
+	Working directory: Donde trabajas con tus archivos, despues los pasas a staging
+	Staging Area: Preparando
+	Repository: Producto final
+
+Basic Commands:
+- git init: Es para empezar usar git en algun proyecto (existente o nuevo)
+- git add <file>: Es para pasar de wd a sa
+	- git add . te permite agregar todos los archivos en el wd a tu entorno de trabajo
+- git status: Te dice los status de tus archivos, donde estan
+- git commit: Pasar de staging area a repository, crea un "snapshot"
+	-git commit -m "escribe tus comentarios" (esto es para bypasear la otra ventana bahhh)
+- git push: Para subirlo a un repositorio remoto
+- git pull: Te traes los cambios que han hecho otros developers
+- git clone: Te copia el codigo desde el repositorio central a tu maquina local
+- git diff: Te dice las diferencias contra el ultimo cambio guardado
+- git checkout: Te deshace el ultimo cambio guardado
+- git log: Te da un log de los ultimos cambios hechos comiteados
+- git branch: Te dice si estas en el master
+- git branch "nombre" : Esto te crea una "version alternativa" del master y puedes ver las dos llamando git branch
+	- git checkout "nombre" saltas del master a "nombre". Entonces es como un entorno virtual donde puedes hacer lo que te de la gana
+y despues que terminas haces checkout y te pasas al master y vas a ver que regresas a ese entorno donde estaba el master, no vas a ver
+nada de lo que creaste en el branch login, wow! Es como entrar en mundos diferentes.
+
+Git ignora las carpetas vacias
+
+Para empezar tienes que abrir el bash e ir al cd de tu proyecto y poner git init. Esto te crea una 
+carpeta oculta llamanda .git ahi mismo. Es la carpeta que administra todos los cambios de tu codigo
+pero no tienes que tocar nada de ahi. No deberiamos tocar nada de ahi.
+
+La primera vez que pones git status te va a decir:
+nothing added to commit but untracked files present (use "git add" to track)
+o sea, los archivos están en el aire. Tienes que decirles cuales archivos trakear
+
+Entonces usas git add "nombre de archivo" para añadir un archivo a trakear con git.
+
+Para setear tu usario usas los siguientes comandos:
+git config --global user.email "gali9600@gmail.com"
+git config --global user.name "Giancarlo"
+Aunque puede que ya lo agarre de tu maquina. En teoria tienes que setearlo manual si te pregunta
+"who you are" en el bash
+
+Entonces poner git status para ver cuales estan staged y despues pones git commit
+Una vez haces esto aprieta "i" para poder insertar comentarios sobre ese commit
+Despues pones ESC y escribes :wq para terminar el commit
+
+
+Para ver un log de los cambios commited entonces usa el commando git log
+
+$ git log
+commit 61bbee0f075620351281aa09ca64bef68ed0c460 (HEAD -> master)
+Author: Giancarlo <gali9600@gmail.com>
+Date:   Mon Jun 29 20:45:05 2020 -0500
+
+    Mi primer commit
+
+Despues de hacer este commit si haces git status no te va a salir nada en verde (stage)
+
+
+Si haces un cambio y lo guardas esto lo trackea git. Llamas a git status y te va a salir algo asi:
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   EngineeringMetricsWeekly.py
+
+Si quieres deshacer este cambio entonces llamas: git checkout -- nombre del archivo
+Y automaticamente te deshace el cambio, what a demence!
+
+Si haces un cambio y lo guardas como en el ejemplo anterior, y quieres ver qué cambio entonces usa: git diff nombredearchivo
+what a demence!
+
+Para ignorar archivos puedes crear un archivo ".gitignore" Y en esto nombra todos los archivos y carpetas que quiere que ignore. Los
+archivos se escribe con su extension y los folderes solo se escribe el nombre a secas
+
+
+******GITHUB***********
+Puedes crear repositorio directamente desde tu cuenta en github o:
+
+…or create a new repository on the command line
+echo "# Engineering-Metrics-Weekly" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/gali960/Engineering-Metrics-Weekly.git
+git push -u origin master
+                
+…or push an existing repository from the command line
+git remote add origin https://github.com/gali960/Engineering-Metrics-Weekly.git
+git push -u origin master
+
+git fetch #Te agarra los archivos del repositorio remoto
+git pull #Te agarra los cambios que hay en los archivos de ese repositorio remoto
+
+Si eliminas los archivos locales tas cool porque todo ta en tu repositorio con "choose to download" o copiar el codigo del boton verde
+de download y poner en el bash: git clone "codigo copiado de github"
+
+gali960
+Faring0707!!
+
+-noticias scrape
+-py2pdf
+-pdf merge
+-specsheetmaker737NG
+-Metricas
+
+
+
+# Terminal Cheat Sheet
+
+pwd         # print working directory
+ls          # list files in directory
+cd          # change directory
+~           # home directory
+..          # up one directory
+-           # previous working directory
+help        # get help
+-h          # get help
+--help      # get help
+man         # manual
+cat         # output the contents of a file
+mkdir       # create new directory
+open        # open a file with the associated program, a directory with Finder, or a URL with the default web browser
+ps          # list all running processes
+kill        # terminate existing process
+rmd         # permanently delete file
+rmdir       # remove directory
+
+
+
+
+
+## Working with Git
+
+### Quick Start
+git clone <url> 					# Clone directory
+git checkout -b <new-branch> 		# Create new local branch
+git push -u origin <new-branch> 	# Sync local branch with remote
+git checkout <branch> 				# Checkout branch
+git push origin <branch> 			# Push branch to remote
+
+git branch -d <branchname>   	# deletes local branch
+git push origin :<branchname>	# deletes remote branch
+
+git subtree push --prefix docs origin gh-pages  # push docs as subtree to gh-pages
+
+
+
+### Clone Directory
+git clone <url>
+
+
+
+### Create Project
+cd project/
+git init                    # initializes the repository
+git add .                   # add those 'unknown' files
+git commit                  # commit all changes, edit changelog entry
+git rm --cached <file>...   # ridiculously complicated command to undo, in case you forgot .gitignore
+
+
+
+### Branching and Merging
+git branch                          # show list of all branches (* is active)
+git checkout -b linux-work          # create a new branch named "linux-work"
+<make changes>
+git commit -a
+git checkout master                 # go back to master branch
+git merge linux-work                # merge changesets from linux-work (Git >= 1.5)
+git pull . linux-work               # merge changesets from linux-work (all Git versions)
+git branch -m <oldname> <newname>   # rename branch
+git branch -m <newname>             # rename current branch
+
+
+
+### Delete Project
+git branch -d <branchname>   	# deletes local branch
+git push origin :<branchname>	# deletes remote branch
+git remote prune <branchname>	# update local/remote sync
+
+
+
+### Merging Upstream
+
+git remote -v 									# Get list of remote branches
+git remote add upstream <upstream github url>	# Add original as upstream
+git remote -v 									# Check upstream
+
+git fetch upstream 								# Get original repo
+git checkout development						# Switch to main branch in local fork
+git merge upstream/development					# Merge original with fork
+
+git diff --name-only | uniq | xargs subl		# Fix conflicts in Sublime Text
+
+
+
+### Importing Patches
+git apply < ../p/foo.patch
+git commit -a
+
+
+
+### Exporting Patches
+<make changes>
+git commit -a -m "commit message"
+git format-patch HEAD^  # creates 0001-commit-message.txt
+                        # (HEAD^ means every patch since one revision before the
+                        # tip of the branch, also known as HEAD)
+
+
+
+
+### Inspecting Revisions
+
+# inspect history visually
+gitk    # this opens a Tk window, and shows you how the revisions are connected
+
+# inspect history
+git log     # this pipes a log of the current branch into your PAGER
+git log -p  # ditto, but append a patch after each commit message
+
+# inspect a specific commit
+git show HEAD   # show commit info, diffstat and patch
+                # of the tip of the current branch
+
+
+
+### Referring to Revisions
+
+# by name
+git log v1.0.0  # show history leading up to tag "v1.0.0"
+git log master  # show history of branch "master"
+
+# relative to a name
+git show master^    # show parent to last revision of master
+git show master~2   # show grand parent to tip of master
+git show master~3   # show great grand parent to tip of master (you get the idea)
+
+# by output of "git describe"
+git show v1.4.4-g730996f    # you get this string by calling "git describe"
+
+# by hash (internally, all objects are identified by a hash)
+git show f665776185ad074b236c00751d666da7d1977dbe
+git show f665776    # a unique prefix is sufficient
+
+# tag a revision
+git tag v1.0.0                      # make current HEAD known as "v1.0.0"
+git tag interesting v1.4.4-g730996f # tag a specific revision (not HEAD)
+
+
+
+### Comparing Revisions
+# diff between two branches
+git diff origin..master             # pipes a diff into PAGER
+git diff origin..master > my.patch  # pipes a diff into my.patch
+
+# get diffstat of uncommitted work
+git diff --stat HEAD
+
+
+
+
+## Sublime as default text editor
+cd ~
+mkdir bin
+ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+git config --global core.editor "subl -n -w"
+
+### If that's not working
+sudo rm -rf /usr/local/bin/subl
+sudo ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin

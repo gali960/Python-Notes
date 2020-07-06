@@ -1,0 +1,85 @@
+**Primero crea tu venv***
+
+***Empezar proyecto****
+En el cmd escribe django-admin startproject django-project. En este caso 'django-project' es el nombre del proyecto
+Usa cd para definir donde quieres que se cree la carpeta. Entonces esto crea lo siguiente:
+
+django project (folder)
+	django project (folder)
+		__init__py 	#Es un empty file que le dice a python que es un python package
+		settings.py 	#Donde se definen los settings y configuracion
+		urls.py 	#Donde se seteara el mapping de los urls para los usuarios
+		wsgi.py		#Como el django we app y el server se comunican. No se toca usualmente
+	manage.py (file) #Este es el file donde empezaras tu codigo
+
+Para inicializar el manage.py tienes que ir al cmd y poner: python manage.py runserver
+Esto te tira un warning pero por ahora ignoralo.
+El ip address que te da es el local host (tu pc) donde correra tu servidor.
+127.0.0.1 tiene alias de 'localhost' asi que puedes acceder tambien como localhost:8000
+
+*****Creating an app*******
+Para empezar a crear un app tienes que ir al cmd y poner python manage.py startapp blog donde 'blog' en este caso
+corresponde al nombre que quieras ponerle al app. Esto te va a crear un folder de blog
+
+C:.
+¦   db.sqlite3
+¦   manage.py
+¦
++---blog
+¦   ¦   admin.py
+¦   ¦   apps.py
+¦   ¦   models.py
+¦   ¦   tests.py
+¦   ¦   views.py
+¦   ¦   __init__.py
+¦   ¦
+¦   +---migrations
+¦           __init__.py
+¦
++---django_project
+    ¦   asgi.py
+    ¦   settings.py
+    ¦   urls.py
+    ¦   wsgi.py
+    ¦   __init__.py
+    ¦
+    +---__pycache__
+            settings.cpython-37.pyc
+            urls.cpython-37.pyc
+            wsgi.cpython-37.pyc
+            __init__.cpython-37.pyc
+
+Ahora vamos al archio views.py. En este modulo 
+En el archivo de views.py e importas lo siguiente:
+from django.http import HttpResponse
+
+#Function to handle traffic from homepage of our app
+def home(request):
+   return HttpResponse('<h1>Blog Home</h1>')
+
+Ahora vamos a mapear los urls que corresponden a las funciones en views.py creando un archivo llamado urls.py dentro del folder de blog
+Dentro de este archivo tendremos lo siguiente:
+
+from django.urls import path
+from . import views 
+    path('', views.home, name = 'blog-home'
+]
+
+#El . significa que estas importando de los modulos que estan dentro del directorio donde esta urls.py
+#Dentro de path el hecho que pongas '' implica que es el home de ese app. A diferencia de "admin/" que habia en urls de la pagina principal
+#views.home specifica la logica que va a handle that homepage route
+"name = 'blog-home' es el como el alias de esta app para easy search and use 
+
+*******si no usas () para llamar una funcion de otro lado es porque la importas como un objeto*****
+
+
+
+
+
+
+
+
+
+
+
+

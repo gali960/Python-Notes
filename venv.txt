@@ -1,0 +1,20 @@
+-Virtual environments se usa para isolate tus proyectos con sus packages y sus versiones
+especificas requeridas
+
+-El modulo venv ya viene standard con python
+
+-Para crear un nuevo venv en el cmd haces cd a donde quieres crear el venv y escribes
+python -m venv nombredeenvironment
+
+Esto te crea una carpeta self contained con lo que necesita tu environment
+
+Entonces para activar este ambiente escribes en el cmd lo siguiente estando cd en el directorio
+donde está tu carpeta del ambiente:
+nombredeambiente\Scripts\activate.bat
+And you are in!
+
+pip list te va a mostrar los packages que tiene tu ambiente, obviamente no vas a tener nada asi que
+hay que pip install los paquetes
+
+Para desactivar el venv escribes deactivate en el cmd
+Para borrar el venv escribes "rmdir nombredecarpeta /s"

@@ -1,0 +1,57 @@
+iidtivycuphdtkay
+
+
+How to use it
+Go to the settings for your Google Account in the application or device you are trying to set up. Replace your 
+password with the 16-character password shown above.
+Just like your normal password, 
+this app password grants complete access to 
+your Google Account. You won't need to remember it, 
+so don't write it down or share it with anyone.
+
+Roadmap:
+
+Visualization w/ dash
+Django(crear dashboard, restAPI, integrar con SQL/Oracle)
+AWS(seek cert)
+MongoDB
+.NET (get low level cert to understand TCP/IP)
+GIT
+Understand python from command line
+SCRUM
+Command line
+unit testing
+html/css/javascript
+JAVA
+python data science projects (copa reliability and events data)
+resume webpage
+Probles to solve:
+-dashboard for metrics in sharepoint, more easy has to be
+-script que scrape emails y suba los source doc al sharepoint
+- ver en confiabilidad qué se puede hacer al respecto
+- ver tipos de mercados en panama, buscar en google o algo, asi
+puedes ver cual mercado es más profitable, buscar problemas, code a 
+solution, and sell it
+- spec sheet maker
+-MEL WORD docs conversion to pdf and merger
+- metrics automatic every friday
+- alerts email advisory
+- learn about hhtp headers and user agents and everything about
+http requests and responses
+-create alexa custom skill for panama market
+-create amazon like page for panama businesses
+-monique report maintenix consulta con ella
+-rodolfo reports
+- spec sheet embraer
+- el beby ean
+- jh report
+-machine learning es la que es, primero django despues ML
+-ver que apps han triunfado en otros paises y hacer local
+
+
+fecha barcode ,matricula pn ,sn, fault name, barcode de technical reference most recent
+
+
+
+Understand ORM
+

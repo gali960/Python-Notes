@@ -1,0 +1,80 @@
+from requests_html import HTML, HTMLSession
+#El HTMLSession es para poder sacar directo de un url
+
+with open('simple.html') as html_file:
+    source = html_file.read()
+    html = HTML(html=source)
+
+match = html.find('title') #el .find te tira una lista y en vez de title
+#puedes poner cualquier tag
+print(match[0].text) #el .text te tira solo el texto del elemento que encontró
+
+
+match = html.find('title', first = True) #el first = True te tira solo el primero
+print(match.text) 
+
+The .find method uses css selectors, por ejemplo .find('#footer')
+https://www.w3schools.com/cssref/css_selectors.asp
+
+Para buscar el primer 'div' con class 'article': 
+article = html.find('div.article', first = True) 
+print(article.text)
+el div.article tambien esta en formato de css selector
+
+Entonces por ejemeplo:
+article = html.find('div.article', first = True)
+headline = article.find('h2', first = True).text
+summary = article.find('p', first = True).text
+print(headline)
+print(summary)
+
+-Primero buescas el div con class article. O sea buscas el contender de todo
+lo que quieres
+-Despues buscas dentro de ese article un tag h2. 
+-Despues buscas dentro de ese article un p
+#Ojo que al final se le pone .text para sacar el contenido textual y no 
+disque "elemente bla bla"
+
+Para iterar lo de arriba y buscar varias veces entonces se le quita el
+first = True:
+
+for article in articles:
+    headline = article.find('h2', first = True).text
+    summary = article.find('p', first = True).text
+    print(headline)
+    print(summary)
+    print()
+
+Para sacar directo de un website:
+from requests_html import HTML, HTMLSession
+
+session = HTMLSession()
+r = session.get('htteps://corems.com/') #r for response
+article = r.html.find('article', first = True)****
+headline = article.find('.entry-title-link', first = True).text
+summary = article.find('.entry-content p', first = True).text
+
+la sintaxis de .entry.content p viene de css, en este caso significa
+busca el p que esta en el class de entry content
+
+vid_src = article.find('iframe', first = True)
+print(vid_src.attrs)
+
+El metodo attrs te saca los atributos del elemento que buscaste y te lo tira
+en un diccionario. Y entonces asi puedes buscar atributos especificos usando
+dict, por ejemplo:
+print(vid_src.attrs['src'])
+Para hacer el print mas bonito puedes tirar el attrs desde atras asi:
+vid_src = article.find('iframe', first = True).attrs['src']
+
+Para sacar todos los links:
+
+for link in r.html.absolute_links:
+    print(link)
+
+*****PARA SACAR EL JS********
+
+match = html.find('#footer', first = True)
+print(match.html)
+Esto te tira el html que esta viendo la pagina
+
